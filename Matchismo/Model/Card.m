@@ -10,6 +10,12 @@
 
 @implementation Card
 
+
+//##########################################################################
+// *   @method          match:...
+// *   @abstract        method that returns 1 on a match, 0 otherwise
+// *   @description     if two cards have the same contents, then they match
+//##########################################################################
 -(int)match:(NSArray *)otherCards
 {
     int score = 0;
