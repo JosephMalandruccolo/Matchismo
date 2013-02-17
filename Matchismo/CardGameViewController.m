@@ -17,6 +17,7 @@
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+- (IBAction)newGame:(id)sender;
 @end
 
 @implementation CardGameViewController
@@ -30,6 +31,7 @@
 //##########################################################################
 -(CardMatchingGame *)game
 {
+    NSLog(@"game called");
     if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:self.cardButtons.count
                                                   usingDeck:[[PlayingCardDeck alloc] init]];
     return _game;
@@ -102,5 +104,20 @@
 }
 
 
+//##########################################################################
+// *   @method          newGame:...
+// *   @abstract        deals a new game of Machismo
+// *   @description     resets the flips, score, result, and deals new cards
+//##########################################################################
+- (IBAction)newGame:(id)sender {
+    
+    //destroy and rebuild the current game
+    self.game = nil;
+    self.game = [self game];
+    self.resultLabel.text = @"Flip a card to start!";
+    self.flipCount = 0;
+    [self updateUI];
+    
+}
 
 @end
