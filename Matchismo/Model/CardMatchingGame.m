@@ -74,13 +74,19 @@
 
 
 
+//##########################################################################
+// *   @method          flipCardAtIndex:...
+// *   @abstract        model method to flip card at index
+// *   @description     returns a NSString describing the result
+//##########################################################################
 #define MATCH_BONUS 4
 #define MISMATCH_PENALTY 2
 #define FLIP_COST 1
 
--(void)flipCardAtIndex:(NSUInteger)index
+-(NSString *)flipCardAtIndex:(NSUInteger)index
 {
     Card *card = [self cardAtIndex:index];
+    NSString *result = @"Keep flipping!";
     
     if (!card.isUnplayable) {
         if (!card.isFaceUp) {
@@ -91,10 +97,12 @@
                         otherCard.unplayable = YES;
                         card.unplayable = YES;
                         self.score += matchScore * MATCH_BONUS;
+                        result = [NSString stringWithFormat:@"Matched %@ & %@\n+%d points!", card.contents, otherCard.contents, matchScore * MATCH_BONUS];
                     }
                     else {
                         otherCard.faceUp = NO;
                         self.score -= MISMATCH_PENALTY;
+                        result = [NSString stringWithFormat:@"%@ & %@ don't match!\n-%d point penalty!", card.contents, otherCard.contents, MISMATCH_PENALTY];
                     }//end if-else
                     break;
                 }//end if
@@ -103,6 +111,9 @@
         }//end if
         card.faceUp = !card.isFaceUp;
     }//end if
+    
+    return result;
+    
 }
 
 
